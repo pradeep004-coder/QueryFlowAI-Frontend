@@ -189,7 +189,7 @@ export default function Home() {
           <form className="
               w-[90%] lg:w-[70%]
               bg-zinc-900
-              mb-5 sm:mb-[50px]
+              mb-5 sm:mb-[100px]
               p-1 pr-3
               text-white
               rounded-4xl
