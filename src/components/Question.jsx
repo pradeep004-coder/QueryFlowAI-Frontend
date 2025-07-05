@@ -1,5 +1,5 @@
 
-function Question({question, time, isAnsLoading}) {
+function Question({question, time}) {
   return (
      <div className="max-w-[75%] w-fit ml-auto my-6 bg-zinc-800 p-3 rounded-2xl rounded-tr-none">
         <div className="text-zinc-200">{question}</div>
