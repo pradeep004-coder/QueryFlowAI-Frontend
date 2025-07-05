@@ -106,7 +106,7 @@ export default function Home() {
   };
   
   return (
-    <div className='h-screen sm:h-[90%] overflow-hidden flex flex-col' onClick={() => setShowSidebar(false)}>
+    <div className='h-full sm:h-[90%] overflow-hidden flex flex-col' onClick={() => setShowSidebar(false)}>
         {/* -------Navabr------- */}
         <nav className='flex bg-zinc-900 p-2'>
           <button 
