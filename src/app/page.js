@@ -151,8 +151,8 @@ export default function Home() {
             </div>
           </div>)}
         {/*-------Chat Section--------*/}
-        <div ref={scrollContainerRef} className={`flex-1 flex flex-col container p-3 overflow-auto text-zinc-300`}>
-          {!chat.length && <div className='h-full flex items-center justify-center'>
+        
+          {!chat.length ? <div className='h-[50%] flex items-center justify-center'>
               <h1 className="
                   text-4xl lg:text-5xl font-bold text-center text-transparent
                   bg-clip-text bg-gradient-to-r from-zinc-100 to-blue-400"
@@ -160,7 +160,8 @@ export default function Home() {
                   Welcome to QueryFlow<span className="text-blue-500">.ai</span>
               </h1>
             </div>
-          }
+          :
+          <div ref={scrollContainerRef} className={`flex-1 flex flex-col container p-3 overflow-auto text-zinc-300`}>
           {chat.map((chatItem, i) => (
             <div key={i} className="mb-5"  ref={(el) => (questionRefs.current[i] = el)}>
                 <Question question={chatItem.question} time={chatItem.time}/>
@@ -183,13 +184,13 @@ export default function Home() {
                 <hr />
             </div>
           ))}
-      </div>
+      </div>}
         {/*-------Input Section--------*/}
         <div className='flex justify-center'>
           <form className="
               w-[90%] lg:w-[70%]
               bg-zinc-900
-              mb-5 sm:pb-[50px]
+              mb-5
               p-1 pr-3
               text-white
               rounded-4xl
