@@ -10,42 +10,50 @@ export const parseResponse = (str) => {
   let currentLang = 'plain'
 
   lines.forEach(line => {
-    if(line.includes('```')) {
+
+    const trimmed = line.trim();
+
+    if(trimmed.startsWith('```')) {
       inCodeBlock = !inCodeBlock
       if (inCodeBlock) {
-        currentLang = line.replace('```', '').trim() || currentLang
+        currentLang = trimmed.replace('```', '').trim() || currentLang
         codeBuffer = []
       }
-      if (!inCodeBlock && codeBuffer.length>0) {
-        result.push({ type: 'code', content: codeBuffer.join('\n'), language : currentLang})
+      else if (codeBuffer.length > 0) {
+        result.push({ 
+          type: 'code', 
+          content: codeBuffer.join('\n'), 
+          language : currentLang
+        })
         codeBuffer = []
       }
+      return;
     }
 
     if(inCodeBlock) { // Push code
-      if (line.includes('```')) {
+      if (trimmed.includes('```')) {
         return
       } 
        codeBuffer.push(line)
     }
 
-    else if (line.endsWith('```')) {
+    else if (trimmed.endsWith('```')) {
       return
     }
     
-    else if (/^\*\*(.+?)\*\*$/.test(line.trim()) || /^\*\s+\*\*(.+?):\*\*$/.test(line.trim())) { // strict match '**content:**', '*   **`#include <stdio.h>`:**'
+    else if (/^\*\*(.+?)\*\*$/.test(trimmed) || /^\*\s+\*\*(.+?):\*\*$/.test(trimmed)) { // strict match '**content:**', '*   **`#include <stdio.h>`:**'
       result.push({ type: 'h1', content: line})
     }
 
-    else if (/^\d+\.\s+\*\*(.+?)\*\*/.test(line.trim()) || /^\d+\.\s+\*\*(.+?)\*\*/.test(line.trim())) { // strict match '1.  **content:**', '1.  **`#include <stdio.h>`**:'
+    else if (/^\d+\.\s+\*\*(.+?)\*\*/.test(trimmed) || /^\d+\.\s+\*\*(.+?)\*\*/.test(trimmed)) { // strict match '1.  **content:**', '1.  **`#include <stdio.h>`**:'
       result.push({ type: 'h2', content: line})
     }
 
-    else if (/^\s+\*\*(.+?):\*$/.test(line.trim())) { // strict match '  **content:*'
+    else if (/^\s+\*\*(.+?):\*$/.test(trimmed)) { // strict match '  **content:*'
       result.push({ type: 'h3', content: line})
     }
 
-    else if (line.trim() != '```') {
+    else if (trimmed != '```') {
        result.push({ type: 'para', content: line})
     }
   });

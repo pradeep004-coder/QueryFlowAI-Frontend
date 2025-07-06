@@ -10,24 +10,12 @@ import InputSection from '../components/InputSection';
 
 export default function Home() {
   const [query, setQuery] = useState('');
-  const [response, setResponse] = useState(undefined);
   const [chat, setChat] = useState([]);
   const [showSidebar, setShowSidebar] = useState(false);
   const [isAnsLoading, setIsAnsLoading] = useState(false);
-  const [time, setTime] = useState(null);
   const scrollContainerRef = useRef(null);
   const questionRefs = useRef([]);
   const textareaRef = useRef(null)
-
-
-  useEffect(() => {
-    const now = new Date();
-    setTime(now.toLocaleTimeString([], {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: true
-    }));
-  }, []);
 
   useEffect(() => {
     setTimeout(() => {
@@ -66,12 +54,13 @@ export default function Home() {
 
 
   const askQuestion = async () => {
-    getCurrentTime()
+
     const newEntry = { // make record of each query-response object
       id: chat.length+1,
       question: query.trim(),
       time: getCurrentTime(),
     };
+
     setChat(prev => [...prev, newEntry]);
     setQuery('');
     setIsAnsLoading(true)
@@ -88,9 +77,8 @@ export default function Home() {
       });
     
       const json = await res.json();   // process the response
-      const dataString =  json.candidates[0].content.parts[0].text;
+      const dataString = json.candidates[0].content.parts[0].text;
       const dataArray = parseResponse(dataString);
-      setResponse(dataArray);
 
       setChat(prev => {
         const updated = [...prev];
