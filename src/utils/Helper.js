@@ -1,8 +1,4 @@
-export const checkHeading = (str) => { 
-  return /^\*\*(.*)\*$/.test(str);
-};
-
-export const replaceHeadStars = (str) => {
+export const replaceStars = (str) => {
   return str.replace(/^(\*)(\*)|(\*)\$/g,'')
 }
 
@@ -16,12 +12,10 @@ export const parseResponse = (str) => {
   lines.forEach(line => {
     if(line.includes('```')) {
       inCodeBlock = !inCodeBlock
-
       if (inCodeBlock) {
         currentLang = line.replace('```', '').trim() || currentLang
         codeBuffer = []
       }
-
       if (!inCodeBlock && codeBuffer.length>0) {
         result.push({ type: 'code', content: codeBuffer.join('\n'), language : currentLang})
         codeBuffer = []
@@ -34,18 +28,20 @@ export const parseResponse = (str) => {
       } 
        codeBuffer.push(line)
     }
+
     else if (line.endsWith('```')) {
       return
     }
-    else if (/^\*\*(.+?)\*\*$/.test(line.trim()) || /^\*\s+\*\*(.+?):\*\*$/.test(line)) { // strict match '**content:**', '*   **`#include <stdio.h>`:**'
+    
+    else if (/^\*\*(.+?)\*\*$/.test(line.trim()) || /^\*\s+\*\*(.+?):\*\*$/.test(line.trim())) { // strict match '**content:**', '*   **`#include <stdio.h>`:**'
       result.push({ type: 'h1', content: line})
     }
 
-    else if (/^\d+\.\s+\*\*(.+?)\*\*/.test(line) || /^\d+\.\s+\*\*(.+?)\*\*/.test(line)) { // strict match '1.  **content:**', '1.  **`#include <stdio.h>`**:'
+    else if (/^\d+\.\s+\*\*(.+?)\*\*/.test(line.trim()) || /^\d+\.\s+\*\*(.+?)\*\*/.test(line.trim())) { // strict match '1.  **content:**', '1.  **`#include <stdio.h>`**:'
       result.push({ type: 'h2', content: line})
     }
 
-    else if (/^\s+\*\*(.+?):\*$/.test(line)) { // strict match '  **content:*'
+    else if (/^\s+\*\*(.+?):\*$/.test(line.trim())) { // strict match '  **content:*'
       result.push({ type: 'h3', content: line})
     }
 

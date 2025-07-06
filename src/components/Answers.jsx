@@ -39,7 +39,10 @@ function Answers({ ans, ansType, language }) {
         <div className="my-4">
           <div className="bg-zinc-600 px-4 py-2 flex justify-between rounded-t-lg">
             <div className="text-md">{language.charAt(0).toUpperCase() + language.slice(1)}</div>
-            <button type="button" className="text-sm px-1 rounded-md bg-zinc-700 hover:bg-zinc-500 transition-colors border border-zinc-500" onClick={handleCopy}>{copied ? 'copied' : 'copy'}</button>
+            <button 
+              type="button" 
+              className="text-sm px-1 rounded-md bg-zinc-700 hover:bg-zinc-500 transition-colors border border-zinc-500" 
+              onClick={handleCopy}>{copied ? 'copied' : 'copy'}</button>
           </div>
           <div className="bg-zinc-800 text-green-300 text-sm  p-3 overflow-auto rounded-b-lg">
             <pre>
@@ -55,8 +58,8 @@ function Answers({ ans, ansType, language }) {
         <p className="text-md text-zinc-300 leading-relaxed pt-1 pb-3">
           {ans}
         </p>
-      );
+      )
   }
 }
 
-export default Answers
+export default Answers;

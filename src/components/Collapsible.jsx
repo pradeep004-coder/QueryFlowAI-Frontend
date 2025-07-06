@@ -9,13 +9,12 @@ export function Collapsible({children}) {
                             bg-zinc-700 hover:bg-zinc-600 
                             text-zinc-200 hover:text-white 
                             text-sm font-semibold 
-                            rounded-lg shadow-sm transition-all duration-200"
+                            rounded-lg shadow-sm transition-all duration-200
+                            select-none"
                 >
                 {isOpen ? 'Hide' : 'Show'}
                 <span
-                    className={`transform transition-transform duration-300 ${
-                    isOpen ? "rotate-0" : "-rotate-90"
-                    }`}
+                    className={`transform transition-transform duration-300 ${isOpen ? "rotate-0" : "-rotate-90"}`}
                 >
                     ▼
                 </span>

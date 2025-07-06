@@ -8,4 +8,4 @@ function Question({question, time}) {
   )
 }
 
-export default Question
+export default Question;
