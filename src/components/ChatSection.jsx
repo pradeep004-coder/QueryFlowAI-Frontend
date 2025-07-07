@@ -7,7 +7,7 @@ function ChatSection({scrollContainerRef, chat, questionRefs, isAnsLoading}) {
   return (
     <div 
         ref={scrollContainerRef} 
-        className={`flex-1 flex flex-col container p-3 overflow-auto text-zinc-300`}
+        className={`h-[75vh] w-full lg:container mx-auto flex flex-col p-3 overflow-auto text-zinc-300 scroll-invisible`}
     >
         {chat.map((chatItem, i) => (
         <div 

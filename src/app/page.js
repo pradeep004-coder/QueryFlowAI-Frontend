@@ -111,7 +111,7 @@ export default function Home() {
       <Navbar openSidebar={()=>setShowSidebar(true)} />
       {showSidebar && (
         <div className="bg-zinc-800 h-full p-3 fixed left-0 top-0 
-                      w-[90%] lg:w-[30%] 
+                      w-[80%] md:w-[30%] 
                       shadow-lg z-50 "
               onClick={(e)=> e.stopPropagation()}
         >

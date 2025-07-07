@@ -2,7 +2,7 @@ import React from 'react'
 
 function WelcomeContent() {
   return (
-    <div className='h-[50%] flex items-center justify-center'>
+    <div className='h-[50vh] flex items-center justify-center'>
         <h1 className="
             text-4xl lg:text-5xl font-bold text-center text-transparent
             bg-clip-text bg-gradient-to-r from-zinc-100 to-blue-400 select-none cursor-pointer"

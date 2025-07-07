@@ -2,7 +2,7 @@ import Image from "next/image";
 
 function InputSection({askQuestion, textareaRef, query, handleInput, setQuery }) {
   return (
-    <div className='flex justify-center]'>
+    <div className='flex justify-center'>
         <form className="
                 w-[90%] lg:w-[70%]
                 bg-zinc-900
