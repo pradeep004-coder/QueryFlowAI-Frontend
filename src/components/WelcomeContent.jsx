@@ -7,7 +7,7 @@ function WelcomeContent() {
             text-4xl lg:text-5xl font-bold text-center text-transparent
             bg-clip-text bg-gradient-to-r from-zinc-100 to-blue-400 select-none cursor-pointer"
         >
-            QueryFlow me apka swagat hai...<span className="text-blue-500">.ai</span>
+            QueryFlow<span className="text-blue-500">.ai</span> me apka swagat hai...
         </h1>
     </div>
   )
