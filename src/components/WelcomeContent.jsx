@@ -7,10 +7,10 @@ function WelcomeContent() {
             text-4xl lg:text-5xl font-bold text-center text-transparent
             bg-clip-text bg-gradient-to-r from-zinc-100 to-blue-400 select-none cursor-pointer"
         >
-            QueryFlow<span className="text-blue-500">.ai</span> me apka swagat hai...
+            Welcome to QueryFlow<span className="text-blue-500">.ai</span>
         </h1>
     </div>
   )
 }
 
-export default WelcomeContent
+export default WelcomeContent;
