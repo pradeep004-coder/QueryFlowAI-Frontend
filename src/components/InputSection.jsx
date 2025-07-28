@@ -23,7 +23,7 @@ function InputSection({askQuestion, textareaRef, query, handleInput, setQuery })
                 onInput={handleInput}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={(e) => {
-                    if (e.ctrlKey && e.key === 'Enter') {
+                    if (e.ctrlKey && e.key === 'Enter' && e.target.value.trim()) {
                     e.preventDefault();
                     askQuestion();
                     }

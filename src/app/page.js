@@ -40,63 +40,63 @@ export default function Home() {
     return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
   }
 
-  const payload = {
-     "contents": [
-      {
-        "parts": [
+  const askQuestion = async () => {
+      const newEntry = { // make record of each query-response object
+        id: chat.length+1,
+        question: query.trim(),
+        time: getCurrentTime(),
+      };
+
+      console.log(query);
+
+      setChat(prev => [...prev, newEntry]);
+      setQuery('');
+      setIsAnsLoading(true)
+
+      if (scrollContainerRef.current) {
+        scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+      }
+
+      const payload = {
+        "contents": [
           {
-            "text": query
+            "parts": [
+              {
+                "text": query
+              }
+            ]
           }
         ]
       }
-    ]
-  }
+      
+      try {
+        let res = await fetch(URL, { // send question and get response from the api
+          method : 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body : JSON.stringify(payload)
+        });
+      
+        const json = await res.json();   // process the response
+        const dataString = json.candidates[0].content.parts[0].text;
+        const dataArray = parseResponse(dataString);
 
-
-  const askQuestion = async () => {
-
-    const newEntry = { // make record of each query-response object
-      id: chat.length+1,
-      question: query.trim(),
-      time: getCurrentTime(),
-    };
-
-    setChat(prev => [...prev, newEntry]);
-    setQuery('');
-    setIsAnsLoading(true)
-
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
-    }
-    
-    try {
-      let res = await fetch(URL, { // send question and get response from the api
-        method : 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body : JSON.stringify(payload)
-      });
-    
-      const json = await res.json();   // process the response
-      const dataString = json.candidates[0].content.parts[0].text;
-      const dataArray = parseResponse(dataString);
-
-      setChat(prev => {
-        const updated = [...prev];
-        const lastIndex = updated.length - 1;
-        if (lastIndex >= 0) {
-          updated[lastIndex] = {
-            ...updated[lastIndex],
-            answer: dataArray
+        setChat(prev => {
+          const updated = [...prev];
+          const lastIndex = updated.length - 1;
+          if (lastIndex >= 0) {
+            updated[lastIndex] = {
+              ...updated[lastIndex],
+              answer: dataArray
+            }
           }
-        }
 
-        return updated;
-      });
-    } catch (error) {
-      console.error("fetching failed:", error);
-    } finally {
-      setIsAnsLoading(false);
-    }  
+          return updated;
+        });
+      } catch (error) {
+        console.error("fetching failed:", error);
+      } finally {
+        setIsAnsLoading(false);
+      }
   }
 
   const handleInput = (e) => {
@@ -104,24 +104,14 @@ export default function Home() {
   }
   
   return (
-    <div 
-      className='h-full overflow-hidden flex flex-col' 
-      onClick={() => setShowSidebar(false)}
-    >
+    <div className='h-full overflow-hidden flex flex-col'>
       <Navbar openSidebar={()=>setShowSidebar(true)} />
-      {showSidebar && (
-        <div className="bg-zinc-800 h-full p-3 fixed left-0 top-0 
-                      w-[80%] md:w-[30%] 
-                      shadow-lg z-50 "
-              onClick={(e)=> e.stopPropagation()}
-        >
-          <Sidebar 
+      { showSidebar && (<Sidebar 
             denySidebar={()=>setShowSidebar(false)}
             chat={chat} questionRefs={questionRefs}
             isAnsLoading={isAnsLoading}
-          />
-        </div>
-      )}
+          />)
+      }
       {!chat.length ? 
         <WelcomeContent/>
       : <ChatSection

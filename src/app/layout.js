@@ -16,7 +16,7 @@ export const metadata = {
   description: "An interactive, sleek AI assistant interface built with Next.js & Tailwind.",
   icons: {
     icon: '/favicon.png',
-  },
+  }
 };
 
 export default function RootLayout({ children }) {
