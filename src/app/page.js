@@ -22,7 +22,7 @@ export default function Home() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      fetch("https://vercel.com/pradeeps-projects-b5345319/query-flow-ai-backend/6CfkGNFSxeMDCB4PS7gnFzhLdAL1/getchats", {
+      fetch("https://query-flow-ai-backend-n3jtwx279-pradeeps-projects-b5345319.vercel.app/getchats", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
         body: JSON.stringify({ chatLength: chat.length })
@@ -132,7 +132,7 @@ export default function Home() {
     if (context.isLoggedIn && !isPosting) {
       setIsPosting(true);
       const token = localStorage.getItem("token");
-      fetch("https://vercel.com/pradeeps-projects-b5345319/query-flow-ai-backend/6CfkGNFSxeMDCB4PS7gnFzhLdAL1/postchat", {
+      fetch("https://query-flow-ai-backend-n3jtwx279-pradeeps-projects-b5345319.vercel.app/postchat", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
         body: JSON.stringify({ ...newEntry, answer })

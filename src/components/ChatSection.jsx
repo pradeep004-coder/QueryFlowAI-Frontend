@@ -16,7 +16,7 @@ function ChatSection({ scrollContainerRef, chat, setChat, questionRefs }) {
         if (e.target.scrollTop === 0 && isLoggedIn && canLoadMore && !loading) {
             const token = localStorage.getItem("token");
             setLoading(true);
-            fetch("https://vercel.com/pradeeps-projects-b5345319/query-flow-ai-backend/6CfkGNFSxeMDCB4PS7gnFzhLdAL1/getchats", {
+            fetch("https://query-flow-ai-backend-n3jtwx279-pradeeps-projects-b5345319.vercel.app/getchats", {
                 method: "POST",
                 headers: { "Content-Type": "applycation/json", "Authorization": `Bearer ${token}` },
                 body: JSON.stringify({ chatLengh: chat.length })
