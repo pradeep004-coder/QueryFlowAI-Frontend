@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useContext } from "react";
 import { ChatContext } from "../app/context/context";
+import { ClipLoader } from "react-spinners";
 
 function InputSection({ askQuestion, textareaRef, query, handleInput, setQuery }) {
     const context = useContext(ChatContext);
