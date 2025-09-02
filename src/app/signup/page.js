@@ -51,14 +51,14 @@ export default function Singup() {
                 password: passwordVal
             }));
 
-           fetch("https://queryflowai-backend.onrender.com/signup", {
+            fetch("https://queryflowai-backend.onrender.com/signup", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ name: nameVal, email: emailVal, password: passwordVal })
             })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.success && data.jwtToken) {
+                    if (data && data.success && data.jwtToken) {
                         localStorage.setItem("token", data.jwtToken);
                         context.setUserData({
                             name: data.name,
@@ -77,7 +77,10 @@ export default function Singup() {
                         toast.error(data.message || "Signup failed!");
                     }
                 })
-                .catch(error => console.error("failed to post:", error));
+                .catch(error => {
+                    toast.error(data.message || "Signup failed!");
+                    console.error("failed to post:", error)
+                });
         }
     }
 

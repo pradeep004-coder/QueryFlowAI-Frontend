@@ -18,12 +18,12 @@ function ChatSection({ scrollContainerRef, chat, setChat, questionRefs }) {
             setLoading(true);
             fetch("https://queryflowai-backend.onrender.com/getchats", {
                 method: "POST",
-                headers: { "Content-Type": "applycation/json", "Authorization": `Bearer ${token}` },
-                body: JSON.stringify({ chatLengh: chat.length })
+                headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+                body: JSON.stringify({ chatLength: chat.length })
             })
                 .then(response => response.json())
                 .then(data => {
-                    if (!data.selectedChats.length) return;
+                    if (!data.selectedChats || !data.selectedChats.length) return;
                     setChat(prev => [...data.selectedChats, ...prev]);
                     setCanLoadMore(data.canLoadMore)
                 })
