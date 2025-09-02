@@ -10,7 +10,6 @@ export const parseResponse = (str) => {
   let currentLang = 'plain'
 
   lines.forEach(line => {
-
     const trimmed = line.trim();
 
     if(trimmed.startsWith('```')) {
