@@ -71,7 +71,6 @@ export default function Home() {
 
   const getCurrentTime = () => {
     return Date.now();
-    //now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
   }
 
   const askQuestion = async () => {
