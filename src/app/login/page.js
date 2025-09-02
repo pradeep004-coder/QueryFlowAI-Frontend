@@ -36,7 +36,7 @@ export default function Login() {
             })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.success && data.jwtToken) {
+                    if (data && data.success && data.jwtToken) {
                         localStorage.setItem("token", data.jwtToken);
                         context.setUserData({
                             name: data.name,
@@ -46,15 +46,16 @@ export default function Login() {
                         context.setIsLoggedIn(true);
                         emailRef.current.value = "";
                         passwordRef.current.value = "";
-                        toast.success("Signup successful!");
+                        toast.success("Login successful!");
                         setTimeout(() => {
                             router.push("/");
                         }, 500);
-                    } else {
-                        toast.error(data.message || "Signup failed!");
                     }
                 })
-                .catch(error => console.error("failed to post:", error));
+                .catch(error => {
+                    toast.error(data.message || "login failed!");
+                    console.error("failed to post:", error)
+                });
         }
     }
 

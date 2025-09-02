@@ -37,7 +37,7 @@ export default function Home() {
         })
         .then(data => {
           if (!context.isLoggedIn) return;
-          if (data.success && Array.isArray(data.selectedChats)) {
+          if (data && data.success && Array.isArray(data.selectedChats)) {
             setChat(prev => [...data.selectedChats, ...prev]);
             context.setIsLoggedIn(true);
             context.setCanLoadMore(data.canLoadMore);
@@ -49,7 +49,7 @@ export default function Home() {
           return console.error("unable to load chats: ", err)
         }).finally(() => setIsPosting(false));
     }
-    }, []);
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
@@ -79,21 +79,19 @@ export default function Home() {
       question: query.trim(),
       timestamp: getCurrentTime(),
     }
+    let answer;
 
-    setChat(prev => [...prev, newEntry]);
     setQuery('');
+    setChat(prev => [...prev, newEntry]);
     context.setIsAnsLoading(true)
 
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
-    }
 
     const payload = {
       "contents": [
         {
           "parts": [
             {
-              "text": query
+              "text": newEntry.question
             }
           ]
         }
@@ -108,7 +106,7 @@ export default function Home() {
       });
 
       const json = await res.json();   // process the response
-      const answer = json.candidates[0].content.parts[0].text;
+      answer = json.candidates[0].content.parts[0].text || "No answer available.";
 
       setChat(prev => {
         const updated = [...prev];
@@ -122,23 +120,27 @@ export default function Home() {
         return updated;
       });
 
+      if (scrollContainerRef.current) {
+        scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+      }
+
+      if (answer && context.isLoggedIn && !isPosting) {
+        setIsPosting(true);
+        const token = localStorage.getItem("token");
+        await fetch("https://queryflowai-backend.onrender.com/postchat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+          body: JSON.stringify({ ...newEntry, answer })
+        })
+          .then(response => response.json())
+          .catch(err => console.error("failde to post ", err))
+          .finally(() => setIsPosting(false))
+      }
+
     } catch (error) {
       console.error(error);
     } finally {
       context.setIsAnsLoading(false);
-    }
-    
-    if (context.isLoggedIn && !isPosting) {
-      setIsPosting(true);
-      const token = localStorage.getItem("token");
-      fetch("https://queryflowai-backend.onrender.com/postchat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
-        body: JSON.stringify({ ...newEntry, answer })
-      })
-        .then(response => response.json())
-        .catch(err => console.error("failde to post ", err))
-        .finally(() => setIsPosting(false))
     }
   }
 
