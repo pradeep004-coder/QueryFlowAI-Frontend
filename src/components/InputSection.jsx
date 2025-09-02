@@ -59,7 +59,7 @@ function InputSection({ askQuestion, textareaRef, query, handleInput, setQuery }
                 {context.isAnsLoading &&
                     <button
                         type='submit'
-                        className='mt-auto mb-2 select-none'
+                        className='mt-auto mb-1 select-none'
                     >
                         <ClipLoader
                             color="gray"
