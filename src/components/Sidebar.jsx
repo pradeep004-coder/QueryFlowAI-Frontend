@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ClipLoader } from "react-spinners";
 import ConfirmLogout from "./ConfirmLogout";
 
-function Sidebar({ denySidebar, chat, questionRefs, isAnsLoading }) {
+function Sidebar({ denySidebar, chat, questionRefs, }) {
 
   const [isOpening, setIsOpening] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -83,7 +83,7 @@ function Sidebar({ denySidebar, chat, questionRefs, isAnsLoading }) {
                     select-none cursor-pointer
                     truncate
                     overflow-hidden text-ellipsis whitespace-nowrap
-                    transition-colors duration-700 ${isAnsLoading && !item.answer ? 'fade-text' : null}`
+                    transition-colors duration-700 ${context.isAnsLoading && !item.answer ? 'fade-text' : null}`
                 }
                 onClick={
                   () => {

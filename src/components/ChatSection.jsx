@@ -7,10 +7,10 @@ import { ChatContext } from "../app/context/context";
 import { parseResponse } from "../utils/Helper";
 
 
-function ChatSection({ scrollContainerRef, chat, setChat, questionRefs, isAnsLoading }) {
+function ChatSection({ scrollContainerRef, chat, setChat, questionRefs }) {
 
     const [loading, setLoading] = useState(false);
-    const {isLoggedIn, canLoadMore, setCanLoadMore} = useContext(ChatContext);
+    const {isLoggedIn, canLoadMore, setCanLoadMore, isAnsLoading} = useContext(ChatContext);
 
     const handleLoadMore = (e) => {
         if (e.target.scrollTop === 0 && isLoggedIn && canLoadMore && !loading) {

@@ -13,7 +13,6 @@ export default function Home() {
   const [query, setQuery] = useState('');
   const [chat, setChat] = useState([]);
   const [showSidebar, setShowSidebar] = useState(false);
-  const [isAnsLoading, setIsAnsLoading] = useState(false);
   const [isPosting, setIsPosting] = useState(false);
   const scrollContainerRef = useRef(null);
   const questionRefs = useRef([]);
@@ -84,7 +83,7 @@ export default function Home() {
 
     setChat(prev => [...prev, newEntry]);
     setQuery('');
-    setIsAnsLoading(true)
+    context.setIsAnsLoading(true)
 
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
@@ -103,7 +102,7 @@ export default function Home() {
     }
 
     try {
-      let res = await fetch(URL, { // send question and get response from the api
+      let res = await fetch(URL, { // send question and get response from AI
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -127,7 +126,7 @@ export default function Home() {
     } catch (error) {
       console.error(error);
     } finally {
-      setIsAnsLoading(false);
+      context.setIsAnsLoading(false);
     }
     
     if (context.isLoggedIn && !isPosting) {
@@ -155,7 +154,6 @@ export default function Home() {
         {showSidebar && (<Sidebar
           denySidebar={() => setShowSidebar(false)}
           chat={chat} questionRefs={questionRefs}
-          isAnsLoading={isAnsLoading}
         />)
         }
         {!chat.length ?
@@ -165,7 +163,6 @@ export default function Home() {
             chat={chat}
             setChat={setChat}
             questionRefs={questionRefs}
-            isAnsLoading={isAnsLoading}
           />
         }
         <InputSection
