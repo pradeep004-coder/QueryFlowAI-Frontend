@@ -16,7 +16,7 @@ function ChatSection({ scrollContainerRef, chat, setChat, questionRefs }) {
         if (e.target.scrollTop === 0 && isLoggedIn && canLoadMore && !loading) {
             const token = localStorage.getItem("token");
             setLoading(true);
-            fetch("https://queryflowai-backend.onrender.com//getchats", {
+            fetch("https://queryflowai-backend.onrender.com/getchats", {
                 method: "POST",
                 headers: { "Content-Type": "applycation/json", "Authorization": `Bearer ${token}` },
                 body: JSON.stringify({ chatLengh: chat.length })

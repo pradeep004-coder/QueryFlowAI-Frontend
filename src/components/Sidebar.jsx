@@ -32,7 +32,7 @@ function Sidebar({ denySidebar, chat, questionRefs, }) {
     if ((scrollTop === scrollHeight - clientHeight) && context.isLoggedIn && context.canLoadMore && !loading) {
       setLoading(true);
       const token = localStorage.getItem("token");
-      fetch("https://queryflowai-backend.onrender.com//getchats", {
+      fetch("https://queryflowai-backend.onrender.com/getchats", {
         method: "POST",
         headers: { "Content-Type": "applycation/json", "Authorization": `Bearer ${token}` },
         body: JSON.stringify({ chatLengh: chat.length })

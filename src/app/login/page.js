@@ -29,7 +29,7 @@ export default function Login() {
             emailVal.length > 0 &&
             passwordVal.length > 5
         ) {
-            fetch("http://localhost:8333/login", {
+            fetch("https://queryflowai-backend.onrender.com/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email: emailVal, password: passwordVal })

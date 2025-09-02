@@ -51,7 +51,7 @@ export default function Singup() {
                 password: passwordVal
             }));
 
-           fetch("http://localhost:8333/signup", {
+           fetch("https://queryflowai-backend.onrender.com/signup", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ name: nameVal, email: emailVal, password: passwordVal })
