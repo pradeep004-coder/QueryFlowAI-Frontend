@@ -22,7 +22,7 @@ export default function Home() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      fetch("https://query-flow-ai-backend-n3jtwx279-pradeeps-projects-b5345319.vercel.app/getchats", {
+      fetch("https://queryflowai-backend.onrender.com//getchats", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
         body: JSON.stringify({ chatLength: chat.length })
@@ -132,7 +132,7 @@ export default function Home() {
     if (context.isLoggedIn && !isPosting) {
       setIsPosting(true);
       const token = localStorage.getItem("token");
-      fetch("https://query-flow-ai-backend-n3jtwx279-pradeeps-projects-b5345319.vercel.app/postchat", {
+      fetch("https://queryflowai-backend.onrender.com//postchat", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
         body: JSON.stringify({ ...newEntry, answer })
